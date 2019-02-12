@@ -2,11 +2,11 @@ import os
 from shutil import copy2
 
 data_path = 'data\\extracted_images'
-train_path = 'data\\train'
-test_path = 'data\\test'
+train_path = 'data\\math_symbols\\train'
+test_path = 'data\\math_symbols\\test'
 
-includedLabels = ['1','2','3','4','5','6','7','8','9','0','+','-','times',',','forward_slash']
-# 19 classes
+#5 classes
+includedLabels = ['+','-','times',',','forward_slash']
 os.mkdir(train_path)
 os.mkdir(test_path)
 labels = os.listdir(data_path)
