@@ -11,12 +11,10 @@ from keras.models import load_model
 def get_math_problem(path):
     result_string = ""
     img = cv2.imread(path, 2)
-    img_org = cv2.imread(path)
     img = cv2.bilateralFilter(img, 1, 75, 75)
 
-    # thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
     blur = cv2.GaussianBlur(img, (7, 7), 0)
-    ret3, thresh = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY)  # + cv2.THRESH_OTSU)
+    ret3, thresh = cv2.threshold(blur, 127, 255, cv2.THRESH_BINARY)
     im2, contours, hierarchy = cv2.findContours(thresh, cv2.RETR_CCOMP, cv2.CHAIN_APPROX_SIMPLE)
 
     sorted_contours, bounding_boxes = sort_contours(contours)
@@ -28,8 +26,8 @@ def get_math_problem(path):
         x, y, w, h = cv2.boundingRect(cnt)
 
         if (hierarchy[0][j][3] != -1 and w > 10 and h > 10):
-            # putting boundary on each digit
-            cv2.rectangle(img_org, (x - 10, y - 10), (x + w + 10, y + h + 10), (255, 0, 0), 1)
+            # # putting boundary on each digit
+            # cv2.rectangle(img_org, (x - 10, y - 10), (x + w + 10, y + h + 10), (255, 0, 0), 1)
 
             # cropping each image and process
             roi = img[y - 10:y + h + 10, x - 10:x + w + 10]
